@@ -31,12 +31,3 @@ def getSongDir(musicdir):
 update_db = raw_input("Would you like to update database?")
 if update_db.startswith('y' or 'Y'):
 	getSongDir(musicdir)
-
-#~ from .models import Songs
-#~ 
-#~ #iterates through all the songs in songlist and adds them as entries to Songs table
-#~ for x in songlist:
-	#~ if not Songs.query.filter_by(path_with_space = x):
-		#~ song = Songs(path_sans_space=x.replace(' ','_'), path_with_space=x)
-		#~ db.session.add(song)
-		#~ db.session.commit()
