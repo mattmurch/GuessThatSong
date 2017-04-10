@@ -1,0 +1,13 @@
+<html>
+  <head>
+    {% if title %}
+    <title>{{ title }} - Guess That Song</title>
+    {% else %}
+    <title>Guess That Song</title>
+    {% endif %}
+  </head>
+  <body>
+    <div>Guess That Song:
+    {% block content %}{% endblock %}
+  </body>
+</html>

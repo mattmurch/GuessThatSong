@@ -1,0 +1,16 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+	<p><h3> What Is This Song? </h3>
+		<audio controls autoplay>
+			<source src="static/{{correctchoice}}" type="audio/mp3">
+			Your browser does not support this audio format.
+		</audio></p>
+	<p><form method="post" action='/'>
+				{{ form.hidden_tag()}}
+				{{ form.song_id}}
+				<input type="submit" value="Submit">
+		</form>
+	</p>
+{% endblock %}
