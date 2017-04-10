@@ -19,13 +19,13 @@ def easytoreadname(songpath):
 	songname_with_ext = listaftersplit[-1]
 	songname_split = os.path.splitext(songname_with_ext)
 	return songname_split[0]
-
+						
 @app.route('/', methods=('get', 'post'))
 def index():
+	form = SongForm()
 	allchoices = getchoicesfromdb()
 	wrongchoices = allchoices[1:4]
 	correctchoice = allchoices[0]
-	form = SongForm()
 	formchoices = []
 	for i, name in enumerate(allchoices):
 		formchoices.append((i, easytoreadname(name)))
@@ -36,6 +36,7 @@ def index():
 			return redirect(url_for('correct'))
 		else:
 			return redirect(url_for('wrong'))
+	session['thecorrectchoice'] = correctchoice
 	return render_template('index.html', 
 						title='Guess That Song', 
 						form=form, 
@@ -45,7 +46,9 @@ def index():
 
 @app.route('/wrong')
 def wrong():
-	return render_template('wrong.html',)
+	correctchoice = easytoreadname(session['thecorrectchoice'])
+	return render_template('wrong.html',
+						correctchoice=correctchoice)
 	
 @app.route('/correct')
 def correct():
