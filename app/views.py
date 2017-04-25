@@ -1,10 +1,13 @@
-from flask import render_template, flash, redirect, session, url_for, request
-from app import app, db, models
+from flask import render_template, flash, redirect, session, url_for, request, Response
 from random import sample, choice, shuffle
-from .forms import SongForm
 import os
-from .models import Songs
 from config import musicdir
+from flask_login import login_required, login_user, logout_user
+
+from .forms import SongForm, LoginForm
+from .models import Songs, User
+from app import app, db, models, login_manager
+
 
 def getchoicesfromdb():
 	choicelist_db = Songs.query.all()
@@ -21,7 +24,9 @@ def easytoreadname(songpath):
 	return songname_split[0]
 						
 @app.route('/', methods=('get', 'post'))
+@login_required
 def index():
+	print "index start" 
 	try:
 		if session['wrongcounter'] != 0 or session['correctcounter'] != 0:
 			pass
@@ -56,7 +61,40 @@ def index():
 						wrongcounter=wrongcounter,
 						correctcounter=correctcounter)
 
-@app.route('/wrong')
+@app.route("/login/", methods=["GET", "POST"])
+def login():
+	loginform = LoginForm()
+	print loginform.username.data
+	if loginform.validate_on_submit():
+		username = loginform.username.data
+		password = loginform.password.data       
+		if password == username + "_secret":
+			id = username.split('user')[1]
+			user = User(id)
+			login_user(user)
+			#~ return redirect(request.args.get('next'))
+			return redirect(url_for('index'))
+		#~ else:
+			#~ return abort(401)
+	return render_template('login.html',
+							loginform = loginform)
+        
+@login_manager.user_loader
+def load_user(userid):
+	#~ return User.query.get(int(id))
+	return User(userid)
+        
+@app.route("/logout/")
+@login_required
+def logout():
+	logout_user()
+	return Response('<p>Logged out</p>')
+
+@app.errorhandler(401)
+def page_not_found(e):
+	return Response('<p>Login failed</p>')
+
+@app.route('/wrong/')
 def wrong():
 	correctchoice = easytoreadname(session['thecorrectchoice'])
 	wrongcounter = session['wrongcounter']
@@ -66,7 +104,7 @@ def wrong():
 						wrongcounter=wrongcounter,
 						correctcounter=correctcounter)
 	
-@app.route('/correct')
+@app.route('/correct/')
 def correct():
 	wrongcounter=session['wrongcounter']
 	correctcounter=session['correctcounter']
@@ -74,7 +112,7 @@ def correct():
 						wrongcounter=wrongcounter,
 						correctcounter=correctcounter)
 						
-@app.route('/clearscore')
+@app.route('/clearscore/')
 def clearscore():
 	session['wrongcounter'] = 0
 	session['correctcounter'] = 0

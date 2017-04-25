@@ -1,0 +1,17 @@
+<html>
+	<head>
+			<title>Guess That Song - Login</title>
+	</head>
+	<body>
+		<form action="" method="post" name="login">
+			{{ loginform.hidden_tag()}}
+			<p>Username:
+			{{ loginform.username}}
+			</p>
+			<p>Password:
+			{{loginform.password}}
+			</p>
+			<p><input type="submit" value="Submit"></p>
+		</form>
+	</body>
+</html>
