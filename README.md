@@ -20,13 +20,20 @@ sqlalchemy
 ```
 clone git https://github.com/mattmurch/GuessThatSong.git
 python setup.py install
+python db_create.py
 ```
+
+* On site deployment, answer 'yes' when asked if you would like to update your database.
+* Songs must be located in app/static/ directory
+* This application assumes music is organized into subdirectories as: Music/Artist/Album/Artist - Title.mp3 (or .flac)
+* Application runs of port 5000
+
 
 ## Deployment
 
 
 ```
-python run.py
+GuessThatSong/run.py
 ```
 
 ## Built With
