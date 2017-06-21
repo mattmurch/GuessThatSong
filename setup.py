@@ -14,7 +14,7 @@ setup(name='GuessThatSong',
       author_email='mattmurch@gmail.com',
       url='https://github.com/mattmurch/GuessThatSong',
       download_url='https://github.com/mattmurch/GuessThatSong/tarball/' + __version__,
-      scripts=['GuessThatSong/run.py'],
+      scripts=['run.py'],
       license='MIT',
       classifiers=[
           'Development Status :: 2 - Pre-Alpha',
