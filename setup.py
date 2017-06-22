@@ -2,12 +2,13 @@
 
 from setuptools import setup
 
-__version__ = '0.10'
+__version__ = '0.1.0'
 
 setup(name='GuessThatSong',
       version=__version__,
       install_requires=['Flask==0.12.1',
-					'SQLAlchemy>=1.1.9'],
+					'SQLAlchemy>=1.1.9',
+                    ],
       description='Song Trivia Game Web Application',
       long_description=open('README.md').read(),
       author='Matt Murch',
