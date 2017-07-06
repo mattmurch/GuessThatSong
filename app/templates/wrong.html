@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p>You fucked up! The correct answer was {{correctchoice}}
-	<form action='/'>
-		<input type="submit" value="Try Again"/>
-	</form>
+<p>Wrong! The correct answer was {{correctchoice}}. Do better.
+    <form action='/'>
+        <input type="submit" value="Try Again"/>
+    </form>
 </p>
 {% endblock %}

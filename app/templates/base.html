@@ -1,21 +1,21 @@
 <html>
-	<head>
-		{% if title %}
-			<title>{{ title }} - Guess That Song</title>
-		{% else %}
-			<title>Guess That Song</title>
-		{% endif %}
-	</head>
-	<body>
-	<div>
-	Correct: {{correctcounter}}<br>
-	Wrong: {{wrongcounter}}<br>
-	Total: {{correctcounter + wrongcounter}}<br>
-	<form action='/clearscore'>
-		<input type='submit' value='Reset Score'/>
-	</form>
-	</div>
-		Guess That Song:
-		{% block content %}{% endblock %}
-	</body>
+    <head>
+        {% if title %}
+            <title>{{ title }} - Guess That Song</title>
+        {% else %}
+            <title>Guess That Song</title>
+        {% endif %}
+    </head>
+    <body>
+    <div>
+    Correct: {{correctcounter}}<br>
+    Wrong: {{wrongcounter}}<br>
+    Total: {{correctcounter + wrongcounter}}<br>
+    <form action='/clearscore'>
+        <input type='submit' value='Reset Score'/>
+    </form>
+    </div>
+        Guess That Song:
+        {% block content %}{% endblock %}
+    </body>
 </html>

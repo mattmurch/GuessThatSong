@@ -1,3 +1,6 @@
-#!flask/bin/python
-from app import app
+#!venv/bin/python
+
+from app import app, db
+
+
 app.run(debug=True)

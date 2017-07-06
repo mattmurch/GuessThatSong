@@ -2,7 +2,6 @@ import os
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
 
 from config import MUSICDIR
 
@@ -10,17 +9,14 @@ from config import MUSICDIR
 app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = 'login'
-
 
 from app import views, models
+
+db.create_all()
 
 
 def get_song_dir(musicdir=MUSICDIR):
 #returns a list of the path of all music files in the given directory
-#Fix for x to for 'something descriptive'
     abs_song_dirs = []
     rel_song_dirs = []
     unicode_musicdir = unicode(musicdir)
@@ -28,12 +24,12 @@ def get_song_dir(musicdir=MUSICDIR):
         for name in files:
             if name.endswith('.mp3') or name.endswith('.flac'):
                 abs_song_dirs.append(os.path.join(path, name))
-    for x in abs_song_dirs:
-        rel_song_dirs.append(unicode(os.path.relpath(x, unicode_musicdir)))
-    for x in rel_song_dirs:
-        current_song = models.Songs.query.filter_by(path_with_space=x).first()
+    for abs_directory in abs_song_dirs:
+        rel_song_dirs.append(unicode(os.path.relpath(abs_directory, unicode_musicdir)))
+    for rel_directory in rel_song_dirs:
+        current_song = models.Songs.query.filter_by(path_with_space=rel_directory).first()
         if current_song is None:
-            song = models.Songs(path_sans_space=x.replace(' ','_'), path_with_space=x)
+            song = models.Songs(path_sans_space=rel_directory.replace(' ','_'), path_with_space=rel_directory)
             db.session.add(song)
             db.session.commit()
 

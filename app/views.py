@@ -2,12 +2,12 @@ import os
 from random import sample, choice, shuffle
 
 from flask import render_template, flash, redirect, session, url_for, request, Response
-from flask_login import login_required, login_user, logout_user
+#~ from flask_login import login_required, login_user, logout_user
 
 from config import MUSICDIR
 from .forms import SongForm, LoginForm
-from .models import Songs, User
-from app import app, db, models, login_manager
+from .models import Songs#, User
+from app import app, db, models
 
 
 def get_choices_from_db():
@@ -27,9 +27,8 @@ def easy_to_read_name(songpath):
 
 
 @app.route('/', methods=('get', 'post'))
-@login_required
+#@login_required
 def index():
-    print "index start" 
     try:
         if session['wrongcounter'] != 0 or session['correctcounter'] != 0:
             pass
@@ -65,36 +64,31 @@ def index():
                         correctcounter=correctcounter)
 
 
-#NEED TO FIX LOGIN HERE. COORDINATE WITH DATABASE AND LOGIN FORM
-@app.route("/login/", methods=["GET", "POST"])
-def login():
-    loginform = LoginForm()
-    print loginform.username.data
-    if loginform.validate_on_submit():
-        username = loginform.username.data
-        password = loginform.password.data       
-        if User.query(username == username).exists() and User.query(password == password).exists():
-            user = User.query(username == username and password == password).first()
-            login_user(user)
-            #~ return redirect(request.args.get('next'))
-            return redirect(url_for('index'))
-        #~ else:
-            #~ return abort(401)
-    return render_template('login.html',
-                        loginform=loginform)
+#~ @app.route("/login/", methods=["GET", "POST"])
+#~ def login():
+    #~ loginform = LoginForm()
+    #~ print loginform.username.data
+    #~ if loginform.validate_on_submit():
+        #~ username = loginform.username.data
+        #~ password = loginform.password.data       
+        #~ if User.query(username == username).exists() and User.query(password == password).exists():
+            #~ user = User.query(username == username and password == password).first()
+            #~ login_user(user)
+            #~ return redirect(url_for('index'))
+    #~ return render_template('login.html',
+                        #~ loginform=loginform)
 
 
-@login_manager.user_loader
+#@login_manager.user_loader
 def load_user(userid):
-    #~ return User.query.get(int(id))
     return User(userid)
 
 
-@app.route("/logout/")
-@login_required
-def logout():
-    logout_user()
-    return Response('<p>Logged out</p>')
+#~ @app.route("/logout/")
+#~ @login_required
+#~ def logout():
+    #~ logout_user()
+    #~ return Response('<p>Logged out</p>')
 
 
 @app.errorhandler(401)
