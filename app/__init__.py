@@ -33,7 +33,7 @@ def get_song_dir(musicdir=MUSICDIR):
             db.session.add(song)
             db.session.commit()
 
-
-update_db = raw_input("Would you like to update database?")
-if update_db.startswith('y' or 'Y'):
-    get_song_dir()
+get_song_dir()
+#~ update_db = raw_input("Would you like to update database?")
+#~ if update_db.startswith('y' or 'Y'):
+    #~ get_song_dir()
