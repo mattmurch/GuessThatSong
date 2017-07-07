@@ -1,1 +1,1 @@
-web: gunicorn guessthatsong.wsgi --log-file -
+web: gunicorn app: run
