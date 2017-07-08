@@ -8,13 +8,13 @@ Example App at http://guessthatsong.herokuapp.com
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
 ### Prerequisites
 
 ```
 flask
 sqlalchemy
+flask-sqlalchemy
+flask-wtf
 ```
 
 ### Installing
@@ -24,18 +24,18 @@ clone git https://github.com/mattmurch/GuessThatSong.git
 python setup.py install
 ```
 
-* On site deployment, answer 'yes' when asked if you would like to update your database.
-* Songs must be located in app/static/ directory
+* Place songs in app/static directory.
 * This application assumes music is organized into subdirectories as: Music/Artist/Album/Artist - Title.mp3 (or .flac)
-* Application runs of port 5000
 
 
 ## Deployment
 
-
 ```
 GuessThatSong/run.py
 ```
+
+* If the music directory has changed, answer 'yes' when asked if you would like to update your database.
+* Application runs on port 5000
 
 ## Built With
 
