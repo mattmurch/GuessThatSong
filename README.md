@@ -56,3 +56,6 @@ If you would like to contribute, please send a pull request against the master b
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
+
+* Nicole Orchard
+* Boris Sadkhin
