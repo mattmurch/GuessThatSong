@@ -1,4 +1,5 @@
 #App Database
+app.db
 build
 GuessThatSong.egg-info
 dist
