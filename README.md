@@ -4,6 +4,8 @@ GuessThatSong is a webapp which plays a randomly selected song and gives a
 multiple choice quiz on which song it is. Assumes music directory is local and
 organized, and the path is configurable.
 
+Example App at http://guessthatsong.herokuapp.com
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
@@ -20,7 +22,6 @@ sqlalchemy
 ```
 clone git https://github.com/mattmurch/GuessThatSong.git
 python setup.py install
-python db_create.py
 ```
 
 * On site deployment, answer 'yes' when asked if you would like to update your database.
