@@ -1,0 +1,7 @@
+        'Music'
+            |
+        'Artist'
+            |
+        'Album'
+            |
+'Artist - Title.mp3(.flac)'
