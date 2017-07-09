@@ -11,6 +11,7 @@ from app import app, db, models
 
 
 def get_choices_from_db():
+    """Takes no arguments. Returns a list of the paths of 4 randomly selected songs from the Songs table."""
     choicelist_db = Songs.query.all()
     choicelist_path = []
     for x in choicelist_db:
@@ -20,6 +21,7 @@ def get_choices_from_db():
 
 
 def easy_to_read_name(songpath):
+    """Takes a path to a song and returns just the file name without the extension."""
     list_after_split = songpath.split('/')
     songname_with_ext = list_after_split[-1]
     songname_split = os.path.splitext(songname_with_ext)
@@ -29,6 +31,15 @@ def easy_to_read_name(songpath):
 @app.route('/', methods=('get', 'post'))
 #@login_required
 def index():
+    """Called with no arguments when the root URL is fetched.
+    First builds correct and wrong counters if they do not exist. 
+    Then calls get_choices_from_db and designates 1 song as correct and the other 3 as wrong.
+    Calls easy_to_read_name and shuffles the songs before feeding to the form.
+    If the form is valid on submit, checks the form value.
+    If the correct answer was chosen, update the correct counter and call correct.
+    If the wrong answer was chosen, update the wrong counter and call wrong.
+    Returns the rendered HTML of the index.html file.
+    """
     try:
         if session['wrongcounter'] != 0 or session['correctcounter'] != 0:
             pass
@@ -79,9 +90,9 @@ def index():
                         #~ loginform=loginform)
 
 
-#@login_manager.user_loader
-def load_user(userid):
-    return User(userid)
+#~ @login_manager.user_loader
+#~ def load_user(userid):
+    #~ return User(userid)
 
 
 #~ @app.route("/logout/")
@@ -98,6 +109,9 @@ def page_not_found(e):
 
 @app.route('/wrong/')
 def wrong():
+    """Called when the /wrong URL is fetched.
+    Returns a rendered HTML of the wrong.html file.
+    """
     correctchoice = easy_to_read_name(session['thecorrectchoice'])
     wrongcounter = session['wrongcounter']
     correctcounter = session['correctcounter']
@@ -109,6 +123,9 @@ def wrong():
 
 @app.route('/correct/')
 def correct():
+        """Called when the /correct URL is fetched.
+    Returns a rendered HTML of the correct.html file.
+    """
     wrongcounter = session['wrongcounter']
     correctcounter = session['correctcounter']
     return render_template('correct.html',
@@ -118,6 +135,9 @@ def correct():
 
 @app.route('/clearscore/')
 def clearscore():
+    """Called when the /clearscore URL is fetched.
+    Resets the correct and wrong counters and redirects to the root URL.
+    """
     session['wrongcounter'] = 0
     session['correctcounter'] = 0
     return redirect('/')

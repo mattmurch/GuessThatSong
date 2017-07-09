@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 from config import MUSICDIR
 
-
+#Initialize flask app and database
 app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
@@ -16,7 +16,9 @@ db.create_all()
 
 
 def get_song_dir(musicdir=MUSICDIR):
-#returns a list of the path of all music files in the given directory
+    """Walks configured music directory for mp3 and flac files. Creates a row in the Songs
+    table for each song found that is not already in the database.
+    """
     abs_song_dirs = []
     rel_song_dirs = []
     unicode_musicdir = unicode(musicdir)
@@ -32,8 +34,8 @@ def get_song_dir(musicdir=MUSICDIR):
             song = models.Songs(path_sans_space=rel_directory.replace(' ','_'), path_with_space=rel_directory)
             db.session.add(song)
             db.session.commit()
-#~ 
-get_song_dir()
+
+#On running the server, asks if it should run get_song_dir to update the database
 update_db = raw_input("Would you like to update database?")
 if update_db.startswith('y' or 'Y'):
     get_song_dir()

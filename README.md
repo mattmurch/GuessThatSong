@@ -1,8 +1,7 @@
 # GuessThatSong
 
 GuessThatSong is a webapp which plays a randomly selected song and gives a 
-multiple choice quiz on which song it is. Assumes music directory is local and
-organized, and the path is configurable.
+multiple choice quiz on which song it is.
 
 Example App at http://guessthatsong.herokuapp.com
 
@@ -25,7 +24,6 @@ python setup.py install
 ```
 
 * Place songs in app/static directory.
-* This application assumes music is organized into subdirectories as: Music/Artist/Album/Artist - Title.mp3 (or .flac)
 
 
 ## Deployment
